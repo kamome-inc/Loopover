@@ -1,4 +1,4 @@
-input_A = "URHTP\nWOQKS\nFCLYG\nBDIXJ\nVNEAM"
+input_A = "URATP\nWOQKS\nFCLYG\nBDIXJ\nVNEHM"
 input_B = "ABCDE\nFGHIJ\nKLMNO\nPQRST\nUVWXY"
 
 
@@ -26,6 +26,10 @@ class LoopOver:
         # print(self.mixedUpBoard)
         # print(self.solvedBoard)
 
+    '''
+    May be rewrite move functions to work with item?
+    And add to them function find_XY 
+    '''
     def left(self, n):
         self.mixedUpBoard[n] = self.mixedUpBoard[n][1:] + self.mixedUpBoard[n][:1]
         self.solution.append("L{}".format(n))
@@ -61,9 +65,13 @@ class LoopOver:
         return 0
 
     def find_first_line(self):
+        # moving items to first line
         for sign in self.solvedBoard[0]:
             move_col, move_row = self.find_the_distance(sign)
             col, row = self.find_xy(sign, self.mixedUpBoard)
+            if row == 0:
+                self.down(col)
+                row = 1
 
             # moving rows
             if move_col <= 0:
